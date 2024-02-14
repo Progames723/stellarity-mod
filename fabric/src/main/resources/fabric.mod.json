@@ -4,8 +4,8 @@
   "version": "${version}",
 
   "name": "Stellarity",
-  "description": "This is stellarity but as an actual mod! Originally made by Kohara",
-  "authors": [],
+  "description": "This is stellarity but as an actual mod! Originally made by Kohara. Mod by Progames723 and justawander",
+  "authors": ["Kohara"],
   "contact": {},
 
   "license": "GNU GPL 3.0",
