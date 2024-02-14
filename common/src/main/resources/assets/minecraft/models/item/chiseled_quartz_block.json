@@ -1,0 +1,1 @@
+{"parent":"minecraft:block/chiseled_quartz_block","overrides":[{"predicate":{"custom_model_data":9e4},"model":"stellarity:block/aots"}]}
