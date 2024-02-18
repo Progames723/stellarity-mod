@@ -8,8 +8,8 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 @Mod(Stellarity.MOD_ID)
 public class StellarityForge {
     public StellarityForge() {
-		// Submit our event bus to let architectury register our content on the right time
-        EventBuses.registerModEventBus(Stellarity.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
-        Stellarity.init();
+	    // Submit our event bus to let architectury register our content on the right time
+		EventBuses.registerModEventBus(Stellarity.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
+		Stellarity.init();
     }
 }
