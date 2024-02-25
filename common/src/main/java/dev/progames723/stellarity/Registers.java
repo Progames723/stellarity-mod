@@ -46,6 +46,14 @@ public class Registers {
 		if (logger != null){
 			logger.info("Registered damage type: " + name);
 		}
-		return ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(modid, name));
+		return registerDamageType(modid, name);
+	}
+	private static ResourceKey<DamageType> registerDamageType(String modid, String name) {
+		ResourceKey<DamageType> damageType = ResourceKey.create(Registries.DAMAGE_TYPE, new ResourceLocation(modid, name));
+		if (damageType.registry() != null && damageType.location() != null && damageType != null){
+			return damageType;
+		} else {
+			throw new IllegalStateException("Cannot register damage type: "+name);
+		}
 	}
 }
