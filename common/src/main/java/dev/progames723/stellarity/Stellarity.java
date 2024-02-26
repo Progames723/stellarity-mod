@@ -1,18 +1,20 @@
 package dev.progames723.stellarity;
 
 import dev.architectury.event.EventResult;
-import dev.architectury.event.events.common.EntityEvent;
 import dev.progames723.stellarity.effects.StellarityEffects;
 import dev.progames723.stellarity.events.LivingEvents;
-import net.minecraft.util.Mth;
-import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.ai.attributes.Attribute;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.UUID;
 
 public class Stellarity {
 	public static final String MOD_ID = "stellarity";
@@ -28,8 +30,13 @@ public class Stellarity {
 				ItemStack the = attacker.getMainHandItem();
 				if (the.is(StellarityItems.frigidHarvester)){
 					if (entity.getHealth() <= amount){
+						UUID uuid = UUID.fromString("63c8d435-991a-4566-88d4-35991aa56679");
 						StellarityItems.writeDataFrigidHarvester(the, attacker);
-						
+						the.addAttributeModifier(
+								Attributes.ATTACK_DAMAGE,
+								new AttributeModifier(uuid, "damage_modifier", 5.0, AttributeModifier.Operation.ADDITION),
+								EquipmentSlot.MAINHAND
+						);
 					}
 				}
 			}
