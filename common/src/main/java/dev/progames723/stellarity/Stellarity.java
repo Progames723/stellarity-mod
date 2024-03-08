@@ -53,6 +53,7 @@ public class Stellarity {
 			}
 			return EventResult.pass();
 		});
+		// save for later
 		CommandRegistrationEvent.EVENT.register((dispatcher, context, selection) -> {
 			CommandDispatcher<Object> commandDispatcher = (CommandDispatcher<Object>) (Object) dispatcher;
 			commandDispatcher.register(LiteralArgumentBuilder.literal("obsecure_command_lol")
