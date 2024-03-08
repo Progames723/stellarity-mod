@@ -297,6 +297,7 @@
 	"stellarity.items.weapons.tamaris.disabled": "DISABLED",
 	
 	"stellarity.items.weapons.frigid_harvester": "Frigid Harvester",
+	"item.stellarity.frigid_harvester": "Frigid Harvester",
 	"stellarity.items.weapons.frigid_harvester.description.1": "Imbues itself with souls of slain mobs,",
 	"stellarity.items.weapons.frigid_harvester.description.2": "permanently increasing its damage",
 	"stellarity.items.weapons.frigid_harvester.description.3": "and unlocking passive abilities",

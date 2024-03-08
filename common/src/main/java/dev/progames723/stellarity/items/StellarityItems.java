@@ -1,5 +1,8 @@
-package dev.progames723.stellarity;
+package dev.progames723.stellarity.items;
 
+import dev.architectury.hooks.item.ItemStackHooks;
+import dev.progames723.stellarity.Registers;
+import dev.progames723.stellarity.Stellarity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
@@ -58,11 +61,11 @@ public class StellarityItems {
 			return entity.getType().is(huge);
 		}
 		public static boolean isBoss(Entity entity) {
-			return entity.saveWithoutId(new CompoundTag()).getCompound("Tags").contains("stellarity.boss")||
+			return entity.saveWithoutId(new CompoundTag()).contains("stellarity.boss") ||
 					entity.saveWithoutId(new CompoundTag()).contains("fe.boss");
 		}
 	}
-	public static final SwordItem frigidHarvester = new SwordItem(Tiers.DIAMOND, 1, -3.15f,new Item.Properties().rarity(Rarity.COMMON).defaultDurability(1561).fireResistant().arch$tab(CreativeModeTabs.COMBAT));
+	public static final FrigidHarvesterItem frigidHarvester = new FrigidHarvesterItem(Tiers.DIAMOND, 1, -3.15f,new FrigidHarvesterItem.Properties().rarity(Rarity.COMMON).defaultDurability(1561).fireResistant().arch$tab(CreativeModeTabs.COMBAT));
 	public static void init() {
 		Registers.registerItem(Stellarity.MOD_ID, "frigid_harvester", frigidHarvester, Stellarity.LOGGER);
 	}
@@ -72,7 +75,6 @@ public class StellarityItems {
 	public static void writeDataFrigidHarvester(ItemStack frigidHarvester, Entity entity){
 		double grindAmplifier;
 		DamageBoost damageBoost = DamageBoost.whatBoostPower(entity);
-		SwordItem item = (SwordItem) frigidHarvester.getItem();
 		CompoundTag itemNbt = frigidHarvester.getOrCreateTagElement("frigid_harvester");
 		switch (damageBoost){
 			case MINOR -> {

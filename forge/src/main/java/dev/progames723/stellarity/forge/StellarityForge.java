@@ -2,6 +2,8 @@ package dev.progames723.stellarity.forge;
 
 import dev.architectury.platform.forge.EventBuses;
 import dev.progames723.stellarity.Stellarity;
+import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.data.ForgeItemTagsProvider;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;

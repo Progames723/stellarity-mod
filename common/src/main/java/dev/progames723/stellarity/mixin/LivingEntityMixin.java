@@ -1,7 +1,7 @@
 package dev.progames723.stellarity.mixin;
 
 import dev.architectury.event.EventResult;
-import dev.progames723.stellarity.StellarityItems;
+import dev.progames723.stellarity.items.StellarityItems;
 import dev.progames723.stellarity.events.LivingEvents;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.damagesource.DamageSource;
