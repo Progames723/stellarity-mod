@@ -43,12 +43,11 @@ public class Registers {
 		}
 		return Registry.register(BuiltInRegistries.MOB_EFFECT, new ResourceLocation(modid, name), obj);
 	}
-	public static RegistrySupplier<MobEffect> registerEffect2(String modid, String name, MobEffect obj, @Nullable Logger logger) {
+	public static void registerEffect2(String modid, String name, MobEffect obj, @Nullable Logger logger) {
 		RegistrySupplier<MobEffect> exampleEffect = EFFECTS.register(new ResourceLocation(modid, name), () -> obj);
 		if (logger != null) {
 			logger.info("Registered effect: " + name);
 		}
-		return exampleEffect;
 	}
 
 	public static Item registerItem(String modid, String name, Item obj, @Nullable Logger logger) {
@@ -58,12 +57,11 @@ public class Registers {
 		}
 		return Registry.register(BuiltInRegistries.ITEM, new ResourceLocation(modid, name), obj);
 	}
-	public static RegistrySupplier<Item> registerItem2(String modid, String name, Item obj, @Nullable Logger logger) {
+	public static void registerItem2(String modid, String name, Item obj, @Nullable Logger logger) {
 		RegistrySupplier<Item> exampleItem = ITEMS.register(new ResourceLocation(modid, name), () -> obj);
 		if (logger != null) {
 			logger.info("Registered item: " + name);
 		}
-		return exampleItem;
 	}
 
 	public static Block registerBlock(String modid, String name, Block obj, @Nullable Logger logger){
@@ -73,12 +71,11 @@ public class Registers {
 		}
 		return Registry.register(BuiltInRegistries.BLOCK, new ResourceLocation(modid, name), obj);
 	}
-	public static RegistrySupplier<Block> registerBlock2(String modid, String name, Block obj, @Nullable Logger logger){
+	public static void registerBlock2(String modid, String name, Block obj, @Nullable Logger logger){
 		RegistrySupplier<Block> exampleBlock = BLOCKS.register(new ResourceLocation(modid, name), () -> obj);
 		if (logger != null) {
 			logger.info("Registered block: " + name);
 		}
-		return exampleBlock;
 	}
 
 	public static BlockItem registerBlockItem(String modid, String name, BlockItem obj, @Nullable Logger logger){
