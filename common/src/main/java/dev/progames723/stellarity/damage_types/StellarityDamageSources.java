@@ -124,6 +124,9 @@ public class StellarityDamageSources {
 	public StellarityDamageSources(RegistryAccess registryAccess) {
 		damageType = registryAccess.registryOrThrow(Registries.DAMAGE_TYPE);
 	}
+	protected StellarityDamageSources() {
+		damageType = RegistryAccess.EMPTY.registryOrThrow(Registries.DAMAGE_TYPE);
+	}
 	public DamageSource source(ResourceKey<DamageType> key, @Nullable Entity attacker, @Nullable Entity directAttacker) {
 		return of(key, attacker, directAttacker);
 	}
@@ -132,7 +135,7 @@ public class StellarityDamageSources {
 		if (holder.isPresent()){
 			return new DamageSource(holder.get(), attacker, directAttacker);
 		} else {
-			throw new IllegalStateException("Cannot create a new damage source because "+ key +" is null");
+			throw new IllegalStateException("Cannot create a new damage source because "+ key +" or" + holder + "is null");
 		}
 	}
 }

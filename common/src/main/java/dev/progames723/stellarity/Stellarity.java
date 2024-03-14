@@ -7,6 +7,7 @@ import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.client.ClientTickEvent;
 import dev.architectury.event.events.common.CommandRegistrationEvent;
+import dev.architectury.event.events.common.PlayerEvent;
 import dev.architectury.event.events.common.TickEvent;
 import dev.progames723.stellarity.effects.StellarityEffects;
 import dev.progames723.stellarity.events.LivingEvents;
@@ -15,7 +16,10 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.server.IntegratedServer;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.CreativeModeTabs;
 import net.minecraft.world.item.Item;
@@ -25,6 +29,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.spongepowered.asm.mixin.Shadow;
 
 import java.time.temporal.Temporal;
 
@@ -33,15 +38,17 @@ import static net.minecraft.commands.Commands.argument;
 public class Stellarity {
 	public static final String MOD_ID = "stellarity";
 	public static final Logger LOGGER = LoggerFactory.getLogger("Stellarity");
-	public static Block test;
-	public static Item cameraTest;
+	public static Block test = new Block(BlockBehaviour.Properties.of().instabreak());
+	public static Item cameraTest = new Item(new Item.Properties().arch$tab(CreativeModeTabs.OP_BLOCKS).rarity(Rarity.EPIC).stacksTo(1));
+	
 	@SuppressWarnings(value = "unchecked")
 	public static void init() {
 		LOGGER.info("Working!");
-		StellarityItems.init();
+		Registers.registerBlock2(MOD_ID, "test", test, LOGGER);
+		Registers.registerItem2(MOD_ID, "camera_item", cameraTest, LOGGER);
 		StellarityEffects.init();
-		test = Registers.registerBlock(MOD_ID, "test", new Block(BlockBehaviour.Properties.of().instabreak()), LOGGER);
-		cameraTest = Registers.registerItem(MOD_ID, "camera_item", new Item(new Item.Properties().arch$tab(CreativeModeTabs.OP_BLOCKS).rarity(Rarity.EPIC).stacksTo(1)), LOGGER);
+		StellarityItems.init();
+		Registers.init();
 		LivingEvents.DAMAGED.register((entity, source, amount) -> {
 			if (!source.isIndirect() && source.getDirectEntity() instanceof Player attacker) {
 				ItemStack the = attacker.getMainHandItem();

@@ -6,10 +6,10 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 
 public class StellarityEffects {
-	public static MobEffect PRISMATIC_INFERNO;
-	public static MobEffect FROSTBURN;
+	public static final MobEffect PRISMATIC_INFERNO = new PrismaticInfernoEffect(MobEffectCategory.HARMFUL, 16739201);
+	public static final MobEffect FROSTBURN = new FrostburnEffect(MobEffectCategory.HARMFUL, 6394080);
 	public static void init() {
-		PRISMATIC_INFERNO = Registers.registerEffect(Stellarity.MOD_ID, "prismatic_inferno", new PrismaticInfernoEffect(MobEffectCategory.HARMFUL, 16739201), Stellarity.LOGGER);
-		FROSTBURN = Registers.registerEffect(Stellarity.MOD_ID, "frostburn", new FrostburnEffect(MobEffectCategory.HARMFUL, 6394080), Stellarity.LOGGER);
+		Registers.registerEffect2(Stellarity.MOD_ID, "prismatic_inferno", PRISMATIC_INFERNO, Stellarity.LOGGER);
+		Registers.registerEffect2(Stellarity.MOD_ID, "frostburn", FROSTBURN, Stellarity.LOGGER);
 	}
 }

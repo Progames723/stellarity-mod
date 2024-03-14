@@ -35,12 +35,6 @@ public class FrigidHarvesterItem extends SwordItem {
 	@Override
 	public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> list, TooltipFlag tooltipFlag) {
 		super.appendHoverText(itemStack, level, list, tooltipFlag);
-		if (itemStack.is(this)){
-			CompoundTag itemNBT = itemStack.getOrCreateTagElement("frigid_harvester");
-			if (itemNBT.getDouble("damage_boost") >= 14){
-				itemNBT.putDouble("damage_boost", 14);
-		 	}
-		}
 		itemStack.setHoverName(Component.translatableWithFallback("stellarity.items.weapons.frigid_harvester", "Frigid Harvester").setStyle(Style.EMPTY).withStyle(ChatFormatting.AQUA));
 		list.add(MutableComponent.create(new TranslatableContents(" ", " ", new Object[]{})));
 		list.add(MutableComponent.create(new TranslatableContents("stellarity.items.weapons.frigid_harvester.description.1", "Imbues itself with souls of slain mobs", new Object[]{})));
@@ -106,11 +100,11 @@ public class FrigidHarvesterItem extends SwordItem {
 	}
 	public static void changeItemTexture(ItemStack item, FrigidHarvesterItem.DynamicTexture texture) {
 		switch (texture) {
-			case BASE -> item.getOrCreateTag().putInt("custom_model_data", 90000);
-			case TIER_1 -> item.getOrCreateTag().putInt("custom_model_data", 90001);
-			case TIER_2 -> item.getOrCreateTag().putInt("custom_model_data", 90002);
-			case TIER_3 -> item.getOrCreateTag().putInt("custom_model_data", 90003);
-			case TIER_4 -> item.getOrCreateTag().putInt("custom_model_data", 90004);
+			case BASE -> item.getOrCreateTag().putInt("CustomModelData", 90000);
+			case TIER_1 -> item.getOrCreateTag().putInt("CustomModelData", 90001);
+			case TIER_2 -> item.getOrCreateTag().putInt("CustomModelData", 90002);
+			case TIER_3 -> item.getOrCreateTag().putInt("CustomModelData", 90003);
+			case TIER_4 -> item.getOrCreateTag().putInt("CustomModelData", 90004);
 			default -> throw new IllegalArgumentException("Unexpected value: " + texture);
 		}
 	}

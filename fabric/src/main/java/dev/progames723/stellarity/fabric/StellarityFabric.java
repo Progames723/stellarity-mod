@@ -1,5 +1,6 @@
 package dev.progames723.stellarity.fabric;
 
+import dev.progames723.stellarity.Registers;
 import dev.progames723.stellarity.Stellarity;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.tag.convention.v1.ConventionalItemTags;

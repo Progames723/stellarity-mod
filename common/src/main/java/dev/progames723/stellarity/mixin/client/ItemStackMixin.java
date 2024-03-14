@@ -83,9 +83,7 @@ public abstract class ItemStackMixin {
 					}
 					if (compoundTag.getTagType(TAG_LORE) == 9) {
 						ListTag listTag = compoundTag.getList(TAG_LORE, 8);
-						for (int j = 0; j < listTag.size(); ++j) {
-							additional++;
-						}
+						additional += listTag.size()-1;
 					}
 				}
 			}
@@ -93,8 +91,7 @@ public abstract class ItemStackMixin {
 				for (EquipmentSlot equipmentSlot : EquipmentSlot.values()) {
 					Multimap<Attribute, AttributeModifier> multimap = the.getAttributeModifiers(equipmentSlot);
 					if (multimap.isEmpty()) continue;
-					additional++;
-					additional++;
+					additional+= 2D;
 					for (Map.Entry<Attribute, AttributeModifier> entry : multimap.entries()) {
 						AttributeModifier attributeModifier = entry.getValue();
 						double d = attributeModifier.getAmount();

@@ -1,20 +1,19 @@
 package dev.progames723.stellarity.forge;
 
 import dev.architectury.platform.forge.EventBuses;
+import dev.progames723.stellarity.Registers;
 import dev.progames723.stellarity.Stellarity;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.data.ForgeItemTagsProvider;
-import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-import java.util.function.Consumer;
+import static dev.progames723.stellarity.Stellarity.MOD_ID;
 
-@Mod(Stellarity.MOD_ID)
+@Mod(MOD_ID)
 public class StellarityForge {
     public StellarityForge() {
 	    // Submit our event bus to let architectury register our content on the right time
-		EventBuses.registerModEventBus(Stellarity.MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
-		Stellarity.init();
+	    EventBuses.registerModEventBus(MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
+	    Stellarity.init();
+	    Registers.init();
     }
 }
