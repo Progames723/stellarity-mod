@@ -5,54 +5,38 @@ import com.mojang.brigadier.arguments.StringArgumentType;
 import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import dev.architectury.event.EventResult;
-import dev.architectury.event.events.client.ClientTickEvent;
 import dev.architectury.event.events.common.CommandRegistrationEvent;
-import dev.architectury.event.events.common.PlayerEvent;
-import dev.architectury.event.events.common.TickEvent;
-import dev.progames723.stellarity.effects.StellarityEffects;
+import dev.architectury.registry.registries.RegistrySupplier;
 import dev.progames723.stellarity.events.LivingEvents;
 import dev.progames723.stellarity.items.StellarityItems;
-import net.minecraft.client.Camera;
-import net.minecraft.client.CameraType;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.server.IntegratedServer;
-import net.minecraft.core.Registry;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.ai.attributes.AttributeInstance;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Rarity;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.spongepowered.asm.mixin.Shadow;
-
-import java.time.temporal.Temporal;
 
 import static net.minecraft.commands.Commands.argument;
 
 public class Stellarity {
 	public static final String MOD_ID = "stellarity";
 	public static final Logger LOGGER = LoggerFactory.getLogger("Stellarity");
-	public static Block test = new Block(BlockBehaviour.Properties.of().instabreak());
-	public static Item cameraTest = new Item(new Item.Properties().arch$tab(CreativeModeTabs.OP_BLOCKS).rarity(Rarity.EPIC).stacksTo(1));
+	public static final Block TEST = new Block(BlockBehaviour.Properties.of().instabreak());
+	public static final RegistrySupplier<Block> REGISTERED_TEST = Registers.registerBlock2(MOD_ID, "test", new Block(BlockBehaviour.Properties.of().instabreak()), LOGGER);
 	
 	@SuppressWarnings(value = "unchecked")
 	public static void init() {
 		LOGGER.info("Working!");
-		Registers.registerBlock2(MOD_ID, "test", test, LOGGER);
-		Registers.registerItem2(MOD_ID, "camera_item", cameraTest, LOGGER);
-		StellarityEffects.init();
-		StellarityItems.init();
-		Registers.init();
+		if (REGISTERED_TEST.get() == null){
+			throw new RuntimeException("Not registered!");
+		}
 		LivingEvents.DAMAGED.register((entity, source, amount) -> {
 			if (!source.isIndirect() && source.getDirectEntity() instanceof Player attacker) {
 				ItemStack the = attacker.getMainHandItem();
-				if (the.is(StellarityItems.frigidHarvester)){
+				if (the.is(StellarityItems.FRIGID_HARVESTER)){
 					if (entity.getHealth() <= amount){
 						StellarityItems.writeDataFrigidHarvester(the, attacker);
 					}

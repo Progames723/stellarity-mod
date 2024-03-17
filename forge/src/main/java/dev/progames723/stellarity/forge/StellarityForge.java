@@ -1,7 +1,6 @@
 package dev.progames723.stellarity.forge;
 
 import dev.architectury.platform.forge.EventBuses;
-import dev.progames723.stellarity.Registers;
 import dev.progames723.stellarity.Stellarity;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -13,7 +12,7 @@ public class StellarityForge {
     public StellarityForge() {
 	    // Submit our event bus to let architectury register our content on the right time
 	    EventBuses.registerModEventBus(MOD_ID, FMLJavaModLoadingContext.get().getModEventBus());
+	    var i = Math.PI;
 	    Stellarity.init();
-	    Registers.init();
     }
 }

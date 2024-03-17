@@ -6,7 +6,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 
 public class FrostburnEffect extends MobEffect {
-	protected FrostburnEffect(MobEffectCategory mobEffectCategory, int i) {
+	public FrostburnEffect(MobEffectCategory mobEffectCategory, int i) {
 		super(mobEffectCategory, i);
 	}
 	@Override

@@ -56,7 +56,7 @@ public abstract class ItemStackMixin {
 	@ModifyExpressionValue(method = "getTooltipLines", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/item/enchantment/EnchantmentHelper;getDamageBonus(Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/world/entity/MobType;)F"))
 	private float test(float value) {
 		ItemStack the = (ItemStack) (Object) this;
-		if (the.is(StellarityItems.frigidHarvester)){
+		if (the.is(StellarityItems.FRIGID_HARVESTER)){
 			return value + (float) the.getOrCreateTagElement("frigid_harvester").getDouble("damage_boost");
 		}
 		return value;
@@ -70,7 +70,7 @@ public abstract class ItemStackMixin {
 		ItemStack the = (ItemStack) (Object) this;
 		int i = the.getOrCreateTag().getInt("HideFlags");
 		List<Component> notOriginal = Lists.newArrayList();
-		if (the.is(StellarityItems.frigidHarvester)) {
+		if (the.is(StellarityItems.FRIGID_HARVESTER)) {
 			int additional = 0;
 			if (Minecraft.getInstance().options.advancedItemTooltips && !the.hasCustomHoverName() && (the.is(Items.FILLED_MAP) && (MapItem.getMapId(the) != null))) {
 				additional++;

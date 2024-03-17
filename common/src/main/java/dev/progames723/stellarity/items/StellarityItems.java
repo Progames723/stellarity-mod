@@ -1,5 +1,6 @@
 package dev.progames723.stellarity.items;
 
+import dev.architectury.registry.registries.RegistrySupplier;
 import dev.progames723.stellarity.Registers;
 import dev.progames723.stellarity.Stellarity;
 import net.minecraft.core.registries.Registries;
@@ -63,14 +64,13 @@ public class StellarityItems {
 			return entity.getType().is(huge);
 		}
 		public static boolean isBoss(Entity entity) {
-			return entity.saveWithoutId(new CompoundTag()).contains("stellarity.boss") ||
-					entity.saveWithoutId(new CompoundTag()).contains("fe.boss");
+			return entity.saveWithoutId(new CompoundTag()).contains("stellarity.boss") || entity.saveWithoutId(new CompoundTag()).contains("fe.boss");
 		}
 	}
-	public static final FrigidHarvesterItem frigidHarvester = new FrigidHarvesterItem(Tiers.DIAMOND, 1, -3.15f,new FrigidHarvesterItem.Properties().rarity(Rarity.COMMON).defaultDurability(1561).fireResistant().arch$tab(CreativeModeTabs.COMBAT));
-	public static void init() {
-		Registers.registerItem2(MOD_ID, "frigid_harvester", frigidHarvester, LOGGER);
-	}
+	public static final FrigidHarvesterItem FRIGID_HARVESTER = new FrigidHarvesterItem(Tiers.DIAMOND, 1, -3.15f,new FrigidHarvesterItem.Properties().rarity(Rarity.COMMON).defaultDurability(1561).fireResistant().arch$tab(CreativeModeTabs.COMBAT));
+	public static final RegistrySupplier<FrigidHarvesterItem> REGISTERED_FRIGID_HARVESTER = Registers.registerItem2(MOD_ID, "frigid_harvester", new FrigidHarvesterItem(Tiers.DIAMOND, 1, -3.15f,new FrigidHarvesterItem.Properties().rarity(Rarity.COMMON).defaultDurability(1561).fireResistant().arch$tab(CreativeModeTabs.COMBAT)), LOGGER);
+	public static final Item CAMERA_TEST = new Item(new Item.Properties().arch$tab(CreativeModeTabs.OP_BLOCKS).rarity(Rarity.EPIC).stacksTo(1));
+	public static final RegistrySupplier<Item> REGISTERED_CAMERA_TEST = Registers.registerItem2(MOD_ID, "camera_item", new Item(new Item.Properties().arch$tab(CreativeModeTabs.OP_BLOCKS).rarity(Rarity.EPIC).stacksTo(1)), LOGGER);
 	
 	public static void checkFrigidHarvester(ItemStack frigidHarvester) {
 		SwordItem item = ((SwordItem) frigidHarvester.getItem());

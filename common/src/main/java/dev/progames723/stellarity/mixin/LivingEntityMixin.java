@@ -51,7 +51,7 @@ public abstract class LivingEntityMixin extends Entity {
 			Entity attacker = source.getEntity();
 			if (attacker instanceof Player player) {
 				ItemStack test = player.getMainHandItem();
-				if (test.is(StellarityItems.frigidHarvester)){
+				if (test.is(StellarityItems.FRIGID_HARVESTER)){
 					CompoundTag h = test.getTagElement("frigid_harvester");
 					if (!Objects.isNull(h.getDouble("damage_boost"))) {
 						return amount + (float) h.getDouble("damage_boost");

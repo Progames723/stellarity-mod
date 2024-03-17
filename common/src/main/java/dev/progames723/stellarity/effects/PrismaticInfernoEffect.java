@@ -6,7 +6,7 @@ import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 
 public class PrismaticInfernoEffect extends MobEffect {
-	protected PrismaticInfernoEffect(MobEffectCategory mobEffectCategory, int i) {
+	public PrismaticInfernoEffect(MobEffectCategory mobEffectCategory, int i) {
 		super(mobEffectCategory, i);
 	}
 	@Override
