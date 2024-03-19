@@ -68,9 +68,7 @@ public class StellarityItems {
 		}
 	}
 	public static final FrigidHarvesterItem FRIGID_HARVESTER = new FrigidHarvesterItem(Tiers.DIAMOND, 1, -3.15f,new FrigidHarvesterItem.Properties().rarity(Rarity.COMMON).defaultDurability(1561).fireResistant().arch$tab(CreativeModeTabs.COMBAT));
-	public static final RegistrySupplier<FrigidHarvesterItem> REGISTERED_FRIGID_HARVESTER = Registers.registerItem2(MOD_ID, "frigid_harvester", new FrigidHarvesterItem(Tiers.DIAMOND, 1, -3.15f,new FrigidHarvesterItem.Properties().rarity(Rarity.COMMON).defaultDurability(1561).fireResistant().arch$tab(CreativeModeTabs.COMBAT)), LOGGER);
 	public static final Item CAMERA_TEST = new Item(new Item.Properties().arch$tab(CreativeModeTabs.OP_BLOCKS).rarity(Rarity.EPIC).stacksTo(1));
-	public static final RegistrySupplier<Item> REGISTERED_CAMERA_TEST = Registers.registerItem2(MOD_ID, "camera_item", new Item(new Item.Properties().arch$tab(CreativeModeTabs.OP_BLOCKS).rarity(Rarity.EPIC).stacksTo(1)), LOGGER);
 	
 	public static void checkFrigidHarvester(ItemStack frigidHarvester) {
 		SwordItem item = ((SwordItem) frigidHarvester.getItem());

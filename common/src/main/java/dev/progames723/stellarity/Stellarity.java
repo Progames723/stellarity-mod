@@ -6,33 +6,74 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.CommandRegistrationEvent;
+import dev.architectury.platform.Platform;
+import dev.architectury.registry.registries.Registrar;
+import dev.architectury.registry.registries.RegistrarManager;
 import dev.architectury.registry.registries.RegistrySupplier;
+import dev.progames723.stellarity.effects.FrostburnEffect;
+import dev.progames723.stellarity.effects.StellarityEffects;
 import dev.progames723.stellarity.events.LivingEvents;
+import dev.progames723.stellarity.items.FrigidHarvesterItem;
 import dev.progames723.stellarity.items.StellarityItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.server.IntegratedServer;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.effect.MobEffect;
+import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.*;
+import net.minecraft.world.level.ItemLike;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.util.function.Supplier;
 
 import static net.minecraft.commands.Commands.argument;
 
 public class Stellarity {
 	public static final String MOD_ID = "stellarity";
 	public static final Logger LOGGER = LoggerFactory.getLogger("Stellarity");
-	public static final Block TEST = new Block(BlockBehaviour.Properties.of().instabreak());
-	public static final RegistrySupplier<Block> REGISTERED_TEST = Registers.registerBlock2(MOD_ID, "test", new Block(BlockBehaviour.Properties.of().instabreak()), LOGGER);
+	private static int registerRetries = 2;
+	public static final Supplier<RegistrarManager> MANAGER = () -> RegistrarManager.get(MOD_ID);
+	public static final Registrar<Block> blocks = MANAGER.get().get(Registries.BLOCK);
+	public static final Registrar<Item> items = MANAGER.get().get(Registries.ITEM);
+	public static final Registrar<MobEffect> effects = MANAGER.get().get(Registries.MOB_EFFECT);
+//	public static final Block TEST = new Block(BlockBehaviour.Properties.of().instabreak());
+	public static final RegistrySupplier<Block> REGISTERED_TEST = blocks.register(new ResourceLocation(MOD_ID, "test"), () -> new Block(BlockBehaviour.Properties.of().instabreak()));
+	public static final RegistrySupplier<FrigidHarvesterItem> REGISTERED_FRIGID_HARVESTER = items.register(new ResourceLocation(MOD_ID, "frigid_harvester"), () -> new FrigidHarvesterItem(Tiers.DIAMOND, 1, -3.15f,new FrigidHarvesterItem.Properties().rarity(Rarity.COMMON).defaultDurability(1561).fireResistant().arch$tab(CreativeModeTabs.COMBAT)));
+	public static final RegistrySupplier<Item> REGISTERED_CAMERA_TEST = items.register(new ResourceLocation(MOD_ID, "camera_item"), () -> new Item(new Item.Properties().arch$tab(CreativeModeTabs.OP_BLOCKS).rarity(Rarity.EPIC).stacksTo(1)));
+	public static final RegistrySupplier<MobEffect> REGISTERED_PRISMATIC_INFERNO = effects.register(new ResourceLocation(Stellarity.MOD_ID, "frostburn"), () -> new FrostburnEffect(MobEffectCategory.HARMFUL, 6394080));
+	public static final RegistrySupplier<MobEffect> REGISTERED_FROSTBURN = effects.register(new ResourceLocation(Stellarity.MOD_ID, "frostburn"), () -> new FrostburnEffect(MobEffectCategory.HARMFUL, 6394080));
+	@SafeVarargs
+	public static <T> boolean checkRegistration(RegistrySupplier<? extends T>... obj) {
+		try {
+			for (int i = 0; i < obj.length; i++) {
+				if (obj[i].isPresent()) {
+					LOGGER.info("The %1$s is registered!".formatted((obj[i].get())));
+					registerRetries = 2;
+				} else if (!(obj[i].isPresent() && registerRetries > 0)) {
+					registerRetries--;
+					LOGGER.warn("The %1$s is not registered, retrying! %2$s/2".formatted((obj[i].get()), 2-registerRetries));
+					i--;
+				} else {
+					throw new IllegalStateException("The %1$s is not registered.".formatted((obj[i].get())));
+				}
+			}
+		} catch (Exception e){
+			return false;
+		}
+		return true;
+	}
 	
 	@SuppressWarnings(value = "unchecked")
 	public static void init() {
+		if (!Platform.isForgeLike()){checkRegistration(REGISTERED_TEST, REGISTERED_CAMERA_TEST, REGISTERED_FRIGID_HARVESTER, REGISTERED_FROSTBURN, REGISTERED_PRISMATIC_INFERNO);}
 		LOGGER.info("Working!");
-		if (REGISTERED_TEST.get() == null){
-			throw new RuntimeException("Not registered!");
-		}
 		LivingEvents.DAMAGED.register((entity, source, amount) -> {
 			if (!source.isIndirect() && source.getDirectEntity() instanceof Player attacker) {
 				ItemStack the = attacker.getMainHandItem();
