@@ -12,5 +12,7 @@
   ],
   "injectors": {
     "defaultRequire": 1
-  }
+  },
+  "priority": 2000,
+  "mixinPriority": 2000
 }
