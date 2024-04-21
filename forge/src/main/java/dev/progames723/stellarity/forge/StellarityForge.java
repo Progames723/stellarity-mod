@@ -1,9 +1,11 @@
 package dev.progames723.stellarity.forge;
 
 import dev.architectury.platform.forge.EventBuses;
+import dev.progames723.stellarity.CommonConventionalTags;
 import dev.progames723.stellarity.Stellarity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraftforge.common.data.ForgeEntityTypeTagsProvider;
 import net.minecraftforge.event.server.ServerStartingEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;

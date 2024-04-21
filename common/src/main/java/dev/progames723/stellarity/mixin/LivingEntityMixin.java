@@ -1,6 +1,7 @@
 package dev.progames723.stellarity.mixin;
 
 import dev.architectury.event.EventResult;
+import dev.progames723.stellarity.Stellarity;
 import dev.progames723.stellarity.items.StellarityItems;
 import dev.progames723.stellarity.events.LivingEvents;
 import net.minecraft.nbt.CompoundTag;
@@ -12,6 +13,8 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.ModifyVariable;
@@ -21,9 +24,14 @@ import java.util.Objects;
 
 @Mixin(LivingEntity.class)
 public abstract class LivingEntityMixin extends Entity {
+	@Shadow public abstract void remove(RemovalReason arg);
+	
 	public LivingEntityMixin(EntityType<?> entityType, Level level) {
 		super(entityType, level);
 	}
+	
+	@Unique	private final LivingEntity stellarity$living = (LivingEntity) (Object) this;
+	
 	@Inject(
 			method = "actuallyHurt(Lnet/minecraft/world/damagesource/DamageSource;F)V",
 			at = @At(
@@ -33,12 +41,17 @@ public abstract class LivingEntityMixin extends Entity {
 			cancellable = true
 	)
 	private void livingDamaged(DamageSource damageSource, float f, CallbackInfo ci) {
-		LivingEntity entity = (LivingEntity) (Object) this;
-		if (LivingEvents.DAMAGED.invoker().damaged(entity, damageSource, f) == EventResult.interrupt(null)){
+		if (LivingEvents.DAMAGED.invoker().damaged(stellarity$living, damageSource, f) == EventResult.interrupt(null)){
 			ci.cancel();
-		} else if (LivingEvents.DAMAGED.invoker().damaged(entity, damageSource, f) == EventResult.interrupt(false)){
+		} else if (LivingEvents.DAMAGED.invoker().damaged(stellarity$living, damageSource, f) == EventResult.interrupt(false)){
 			ci.cancel();
 		}
+	}
+	@ModifyVariable(method = "hurt", at = @At(value = "HEAD"), argsOnly = true)
+	private float changeDamage(float damage, DamageSource source) {
+		float newValue = LivingEvents.HURT.invoker().hurt(stellarity$living, source, damage);
+		if (newValue <= 0) return 0;
+		return newValue;
 	}
 	@ModifyVariable(
 			method = "hurt(Lnet/minecraft/world/damagesource/DamageSource;F)Z",
@@ -47,7 +60,6 @@ public abstract class LivingEntityMixin extends Entity {
 	)
 	private float damageBoost(float amount, DamageSource source) {
 		if (source.getEntity() != null && !source.isIndirect()){
-			LivingEntity entity = (LivingEntity) (Object) this;
 			Entity attacker = source.getEntity();
 			if (attacker instanceof Player player) {
 				ItemStack test = player.getMainHandItem();

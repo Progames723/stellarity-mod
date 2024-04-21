@@ -1,7 +1,6 @@
 package dev.progames723.stellarity.items;
 
 import net.minecraft.ChatFormatting;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Style;
@@ -20,13 +19,16 @@ import org.jetbrains.annotations.Nullable;
 import java.util.List;
 import java.util.UUID;
 
+import static dev.progames723.stellarity.items.FrigidHarvesterItem.DynamicTexture.BASE;
+
 public class FrigidHarvesterItem extends SwordItem {
 	public enum DynamicTexture {
-		BASE,
-		TIER_1,
-		TIER_2,
-		TIER_3,
-		TIER_4
+		BASE(90000),
+		TIER_1(90001),
+		TIER_2(90002),
+		TIER_3(90003),
+		TIER_4(90004);
+		DynamicTexture(int CustomModelData) {}
 	}
 	public FrigidHarvesterItem(Tier tier, int i, float f, Properties properties) {
 		super(tier, i, f, properties);
@@ -79,7 +81,7 @@ public class FrigidHarvesterItem extends SwordItem {
 					itemStack.getOrCreateTagElement("frigid_harvester").putDouble("damage_boost", 0);
 				}
 				if (damageBoostAmount < 3) {
-					changeItemTexture(itemStack, DynamicTexture.BASE);
+					changeItemTexture(itemStack, BASE);
 					itemStack.getOrCreateTag().putBoolean("Unbreakable", false);
 				} else if (damageBoostAmount >= 3 && damageBoostAmount < 6) {
 					changeItemTexture(itemStack, DynamicTexture.TIER_1);

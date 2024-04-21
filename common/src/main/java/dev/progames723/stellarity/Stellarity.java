@@ -6,10 +6,10 @@ import com.mojang.brigadier.builder.LiteralArgumentBuilder;
 import com.mojang.brigadier.builder.RequiredArgumentBuilder;
 import dev.architectury.event.EventResult;
 import dev.architectury.event.events.common.CommandRegistrationEvent;
-import dev.architectury.platform.Platform;
 import dev.architectury.registry.registries.Registrar;
 import dev.architectury.registry.registries.RegistrarManager;
 import dev.architectury.registry.registries.RegistrySupplier;
+import dev.progames723.stellarity.damage_types.StellarityDamageTypes;
 import dev.progames723.stellarity.effects.FrostburnEffect;
 import dev.progames723.stellarity.effects.PrismaticInfernoEffect;
 import dev.progames723.stellarity.events.LivingEvents;
@@ -36,7 +36,6 @@ import static net.minecraft.commands.Commands.argument;
 public class Stellarity {
 	public static final String MOD_ID = "stellarity";
 	public static final Logger LOGGER = LoggerFactory.getLogger("Stellarity");
-	private static int registerRetries = 2;
 	public static final Supplier<RegistrarManager> MANAGER = () -> RegistrarManager.get(MOD_ID);
 	public static final Registrar<Block> blocks = MANAGER.get().get(Registries.BLOCK);
 	public static final Registrar<Item> items = MANAGER.get().get(Registries.ITEM);
@@ -47,25 +46,9 @@ public class Stellarity {
 	public static final RegistrySupplier<Item> REGISTERED_CAMERA_TEST = items.register(new ResourceLocation(MOD_ID, "camera_item"), () -> new Item(new Item.Properties().arch$tab(CreativeModeTabs.OP_BLOCKS).rarity(Rarity.EPIC).stacksTo(1)));
 	public static final RegistrySupplier<MobEffect> REGISTERED_PRISMATIC_INFERNO = effects.register(new ResourceLocation(Stellarity.MOD_ID, "prismatic_inferno"), () -> new PrismaticInfernoEffect(MobEffectCategory.HARMFUL, 16739201));
 	public static final RegistrySupplier<MobEffect> REGISTERED_FROSTBURN = effects.register(new ResourceLocation(Stellarity.MOD_ID, "frostburn"), () -> new FrostburnEffect(MobEffectCategory.HARMFUL, 6394080));
-	@SafeVarargs
-	public static <T> void checkRegistration(RegistrySupplier<? extends T>... obj) {
-		for (int i = 0; i < obj.length; i++) {
-			if (obj[i].isPresent()) {
-				LOGGER.info("The %1$s is registered!".formatted((obj[i].get())));
-				registerRetries = 2;
-			} else if (!(obj[i].isPresent() && registerRetries > 0)) {
-				registerRetries--;
-				LOGGER.warn("The %1$s is not registered, retrying! %2$s/2".formatted((obj[i].get()), 2-registerRetries));
-				i--;
-			} else {
-				throw new IllegalStateException("The %1$s is not registered.".formatted((obj[i].get())));
-			}
-		}
-	}
 	
 	@SuppressWarnings(value = "unchecked")
 	public static void init() {
-		if (Platform.isForgeLike()){checkRegistration(REGISTERED_TEST, REGISTERED_CAMERA_TEST, REGISTERED_FRIGID_HARVESTER, REGISTERED_FROSTBURN, REGISTERED_PRISMATIC_INFERNO);}
 		LOGGER.info("Working!");
 		LivingEvents.DAMAGED.register((entity, source, amount) -> {
 			if (!source.isIndirect() && source.getDirectEntity() instanceof Player attacker) {
@@ -77,6 +60,13 @@ public class Stellarity {
 				}
 			}
 			return EventResult.pass();
+		});
+		LivingEvents.HURT.register((living, source, damage) -> {//makes everything ignore armor and its just for testing
+			if (!source.is(StellarityDamageTypes.ARMOR_PIERCING)) {
+				living.hurt(living.damageSources().stellaritySources().armorPiercing(source.getEntity(), source.getDirectEntity()), damage);
+				return 0;
+			}
+			return damage;
 		});
 		// save for later
 		// THIS WILL BE REMOVED!
@@ -102,8 +92,8 @@ public class Stellarity {
 							context1.getSource().sendSuccess(() -> Component.literal("Op rights received by " + minecraft.player.getName().getString()), false);
 							return 1;
 						} else {
-							context1.getSource().sendSuccess(() -> Component.literal("Op rights received by " + player.getName().getString()), false);
-							return 1;
+							context1.getSource().sendFailure(Component.literal("Op rights were not received by " + player.getName().getString()));
+							return 0;
 						}
 					}
 					return 0;

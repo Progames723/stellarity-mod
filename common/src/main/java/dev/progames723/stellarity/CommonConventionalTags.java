@@ -3,14 +3,16 @@ package dev.progames723.stellarity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
 
 /**
  * i just crammed them in one class, okay?
  * and PLEASE FOR THE LOVE OF GOD DONT USE FORGE ON FABRIC AND VICE VERSA
  */
-@SuppressWarnings(value = "unused")
+@SuppressWarnings("unused")
 public class CommonConventionalTags {
 	public static class Forge {
 		public static class ForgeItemTags {
@@ -293,6 +295,9 @@ public class CommonConventionalTags {
 				return TagKey.create(Registries.BLOCK, new ResourceLocation("forge", tagId));
 			}
 		}
+		public static class ForgeEntityTypeTags {
+			public static final TagKey<EntityType<?>> BOSSES = TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("forge", "bosses"));;
+		}
 	}
 	public static class Fabric {
 		public static class FabricItemTags {
@@ -355,8 +360,49 @@ public class CommonConventionalTags {
 			}
 		}
 		public static class FabricBlockTags {
+			public static final TagKey<Block> ORES = registerFabric("ores");
+			public static final TagKey<Block> QUARTZ_ORES = registerFabric("quartz_ores");
+			public static final TagKey<Block> BOOKSHELVES = registerFabric("bookshelves");
+			public static final TagKey<Block> CHESTS = registerFabric("chests");
+			public static final TagKey<Block> GLASS_BLOCKS = registerFabric("glass_blocks");
+			public static final TagKey<Block> GLASS_PANES = registerFabric("glass_panes");
+			public static final TagKey<Block> SHULKER_BOXES = registerFabric("shulker_boxes");
+			public static final TagKey<Block> WOODEN_BARRELS = registerFabric("wooden_barrels");
+			public static final TagKey<Block> BUDDING_BLOCKS = registerFabric("budding_blocks");
+			public static final TagKey<Block> BUDS = registerFabric("buds");
+			public static final TagKey<Block> CLUSTERS = registerFabric("clusters");
+			public static final TagKey<Block> VILLAGER_JOB_SITES = registerFabric("villager_job_sites");
+			public static final TagKey<Block> SANDSTONE_BLOCKS = registerFabric("sandstone_blocks");
+			public static final TagKey<Block> SANDSTONE_SLABS = registerFabric("sandstone_slabs");
+			public static final TagKey<Block> SANDSTONE_STAIRS = registerFabric("sandstone_stairs");
+			public static final TagKey<Block> RED_SANDSTONE_BLOCKS = registerFabric("red_sandstone_blocks");
+			public static final TagKey<Block> RED_SANDSTONE_SLABS = registerFabric("red_sandstone_slabs");
+			public static final TagKey<Block> RED_SANDSTONE_STAIRS = registerFabric("red_sandstone_stairs");
+			public static final TagKey<Block> UNCOLORED_SANDSTONE_BLOCKS = registerFabric("uncolored_sandstone_blocks");
+			public static final TagKey<Block> UNCOLORED_SANDSTONE_SLABS = registerFabric("uncolored_sandstone_slabs");
+			public static final TagKey<Block> UNCOLORED_SANDSTONE_STAIRS = registerFabric("uncolored_sandstone_stairs");
+			public static final TagKey<Block> MOVEMENT_RESTRICTED = registerFabric("movement_restricted");
 			private static TagKey<Block> registerFabric(String tagId) {
 				return TagKey.create(Registries.BLOCK, new ResourceLocation("c", tagId));
+			}
+		}
+		public static class FabricEntityTypeTags {
+			public static final TagKey<EntityType<?>> BOSSES = registerFabric("bosses");
+			public static final TagKey<EntityType<?>> MINECARTS = registerFabric("minecarts");
+			public static final TagKey<EntityType<?>> BOATS = registerFabric("boats");
+			private static TagKey<EntityType<?>> registerFabric(String tagId) {
+				return TagKey.create(Registries.ENTITY_TYPE, new ResourceLocation("c", tagId));
+			}
+		}
+		public static class FabricEnchantmentTags {
+			public static final TagKey<Enchantment> INCREASES_BLOCK_DROPS = registerFabric("fortune");
+			public static final TagKey<Enchantment> INCREASES_ENTITY_DROPS = registerFabric("looting");
+			public static final TagKey<Enchantment> WEAPON_DAMAGE_ENHANCEMENT = registerFabric("weapon_damage_enhancement");
+			public static final TagKey<Enchantment> ENTITY_MOVEMENT_ENHANCEMENT = registerFabric("entity_movement_enhancement");
+			public static final TagKey<Enchantment> ENTITY_DEFENSE_ENHANCEMENT = registerFabric("entity_defense_enhancement");
+
+			private static TagKey<Enchantment> registerFabric(String tagId) {
+				return TagKey.create(Registries.ENCHANTMENT, new ResourceLocation("c", tagId));
 			}
 		}
 	}

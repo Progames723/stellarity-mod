@@ -1,7 +1,5 @@
 package dev.progames723.stellarity.damage_types;
 
-import dev.progames723.stellarity.Registers;
-import dev.progames723.stellarity.Stellarity;
 import net.minecraft.core.Holder;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
@@ -10,28 +8,15 @@ import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.damagesource.DamageType;
 import net.minecraft.world.entity.Entity;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.Optional;
 
+import static dev.progames723.stellarity.damage_types.StellarityDamageTypes.*;
+
 public class StellarityDamageSources {
-	//those are important
-	public static final ResourceKey<DamageType> ARMOR_PIERCING = Registers.registerDamageType("kohara", "armor_piercing", null);
-	public static final ResourceKey<DamageType> SIMULATED_EXPLOSION = Registers.registerDamageType("kohara", "simulated_explosion", null);
-	//DOT damage types
-	public static final ResourceKey<DamageType> FROSTBURN = Registers.registerDamageType(Stellarity.MOD_ID, "dot/frostburn", null);
-	public static final ResourceKey<DamageType> PRISMATIC_INFERNO = Registers.registerDamageType(Stellarity.MOD_ID, "dot/prismatic_inferno", null);
-	//EOL damage types
-	public static final ResourceKey<DamageType> DASH = Registers.registerDamageType(Stellarity.MOD_ID, "empress_of_light/dash", null);
-	public static final ResourceKey<DamageType> PROJECTILE = Registers.registerDamageType(Stellarity.MOD_ID, "empress_of_light/projectile", null);
-	//and everything else
-	public static final ResourceKey<DamageType> CARCANET = Registers.registerDamageType(Stellarity.MOD_ID, "carcanet", null);
-	public static final ResourceKey<DamageType> DRAGONBLADE = Registers.registerDamageType(Stellarity.MOD_ID, "dragonblade", null);
-	public static final ResourceKey<DamageType> ELECTRIC = Registers.registerDamageType(Stellarity.MOD_ID, "electric", null);
-	public static final ResourceKey<DamageType> EXAMPLE = Registers.registerDamageType(Stellarity.MOD_ID, "example", null);
-	public static final ResourceKey<DamageType> KALEIDOSCOPE = Registers.registerDamageType(Stellarity.MOD_ID, "kaleidoscope", null);
-	public static final ResourceKey<DamageType> NATURES_WRATH = Registers.registerDamageType(Stellarity.MOD_ID, "natures_wrath", null);
-	public static final ResourceKey<DamageType> PRISMEMBER = Registers.registerDamageType(Stellarity.MOD_ID, "prismember", null);
+	public static Registry<DamageType> damageType;
 	//damage sources are here
 	public final DamageSource armorPiercing(@Nullable Entity attacker, @Nullable Entity directAttacker){
 		return source(ARMOR_PIERCING, attacker, directAttacker);
@@ -120,22 +105,21 @@ public class StellarityDamageSources {
 	public final DamageSource prismember(@Nullable Entity attacker){
 		return source(PRISMEMBER, attacker, null);
 	}
-	public static Registry<DamageType> damageType;
 	public StellarityDamageSources(RegistryAccess registryAccess) {
+		if (registryAccess == RegistryAccess.EMPTY){
+			throw new IllegalArgumentException("RegistryAccess must not be EMPTY!");
+		}
 		damageType = registryAccess.registryOrThrow(Registries.DAMAGE_TYPE);
-	}
-	protected StellarityDamageSources() {
-		damageType = RegistryAccess.EMPTY.registryOrThrow(Registries.DAMAGE_TYPE);
 	}
 	public DamageSource source(ResourceKey<DamageType> key, @Nullable Entity attacker, @Nullable Entity directAttacker) {
 		return of(key, attacker, directAttacker);
 	}
-	public static DamageSource of(ResourceKey<DamageType> key, @Nullable Entity attacker, @Nullable Entity directAttacker) {
+	public static DamageSource of(@NotNull ResourceKey<DamageType> key, @Nullable Entity attacker, @Nullable Entity directAttacker) {
 		Optional<Holder.Reference<DamageType>> holder = damageType.getHolder(key);
 		if (holder.isPresent()){
 			return new DamageSource(holder.get(), attacker, directAttacker);
 		} else {
-			throw new IllegalStateException("Cannot create a new damage source because "+ key +" or" + holder + "is null");
+			throw new IllegalStateException("Cannot create a new damage source because " + key + " or " + holder + " is null");
 		}
 	}
 }

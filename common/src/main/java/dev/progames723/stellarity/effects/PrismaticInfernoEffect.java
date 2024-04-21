@@ -5,15 +5,15 @@ import net.minecraft.world.effect.MobEffect;
 import net.minecraft.world.effect.MobEffectCategory;
 import net.minecraft.world.entity.LivingEntity;
 
-public class PrismaticInfernoEffect extends MobEffect {
+public class PrismaticInfernoEffect extends BaseEffect {
 	public PrismaticInfernoEffect(MobEffectCategory mobEffectCategory, int i) {
 		super(mobEffectCategory, i);
 	}
 	@Override
 	public void applyEffectTick(LivingEntity livingEntity, int i) {
-		i += 1;
+		i++;
 		super.applyEffectTick(livingEntity, i);
-		StellarityDamageSources sources = livingEntity.level().damageSources().stellaritySources();
+		StellarityDamageSources sources = livingEntity.damageSources().stellaritySources();
 		livingEntity.hurt(sources.prismaticInferno(), i);
 	}
 	@Override

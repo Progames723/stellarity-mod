@@ -1,7 +1,5 @@
 package dev.progames723.stellarity.items;
 
-import dev.architectury.registry.registries.RegistrySupplier;
-import dev.progames723.stellarity.Registers;
 import dev.progames723.stellarity.Stellarity;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.nbt.CompoundTag;
@@ -11,7 +9,6 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.*;
 
-import static dev.progames723.stellarity.Stellarity.LOGGER;
 import static dev.progames723.stellarity.Stellarity.MOD_ID;
 
 public class StellarityItems {
@@ -70,8 +67,8 @@ public class StellarityItems {
 	public static final FrigidHarvesterItem FRIGID_HARVESTER = new FrigidHarvesterItem(Tiers.DIAMOND, 1, -3.15f,new FrigidHarvesterItem.Properties().rarity(Rarity.COMMON).defaultDurability(1561).fireResistant().arch$tab(CreativeModeTabs.COMBAT));
 	public static final Item CAMERA_TEST = new Item(new Item.Properties().arch$tab(CreativeModeTabs.OP_BLOCKS).rarity(Rarity.EPIC).stacksTo(1));
 	
-	public static void checkFrigidHarvester(ItemStack frigidHarvester) {
-		SwordItem item = ((SwordItem) frigidHarvester.getItem());
+	public static void checkFrigidHarvester(ItemStack itemStack) {
+		FrigidHarvesterItem item = (FrigidHarvesterItem) itemStack.getItem();
 	}
 	public static void writeDataFrigidHarvester(ItemStack frigidHarvester, Entity entity){
 		double grindAmplifier;

@@ -24,5 +24,6 @@
   "depends": {
     "fabricloader": ">=0.15.3",
     "minecraft": ">=1.20.2"
-  }
+  },
+  "accessWidener": "stellarity.accesswidener"
 }
