@@ -9,6 +9,7 @@ public class PrismaticInfernoEffect extends BaseEffect {
 	public PrismaticInfernoEffect(MobEffectCategory mobEffectCategory, int i) {
 		super(mobEffectCategory, i);
 	}
+	
 	@Override
 	public void applyEffectTick(LivingEntity livingEntity, int i) {
 		i++;
@@ -16,6 +17,7 @@ public class PrismaticInfernoEffect extends BaseEffect {
 		StellarityDamageSources sources = livingEntity.damageSources().stellaritySources();
 		livingEntity.hurt(sources.prismaticInferno(), i);
 	}
+	
 	@Override
 	public boolean shouldApplyEffectTickThisTick(int i, int j) {
 		return i % 20 == 0;

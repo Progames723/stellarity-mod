@@ -15,6 +15,12 @@
   "entrypoints": {
     "main": [
       "dev.progames723.stellarity.fabric.StellarityFabric"
+    ],
+    "client": [
+      "dev.progames723.stellarity.fabric.client.StellarityFabricClient"
+    ],
+    "server": [
+      "dev.progames723.stellarity.fabric.server.StellarityFabricServer"
     ]
   },
   "mixins": [
@@ -25,5 +31,5 @@
     "fabricloader": ">=0.15.3",
     "minecraft": ">=1.20.2"
   },
-  "accessWidener": "stellarity.accesswidener"
+  "accessWidener": "stellarity_fabric.accesswidener"
 }

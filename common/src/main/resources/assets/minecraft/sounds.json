@@ -133,6 +133,15 @@
 		"subtitle":"subtitles.entity.shulker_bullet.hurt",
 		"replace":true
 	},
+	"entity.ender_dragon.ambient": {
+		"sounds": [
+			"mob/enderdragon/idle1",
+			"mob/enderdragon/idle2",
+			"mob/enderdragon/idle3",
+			"mob/enderdragon/idle4"
+		],
+		"replace": true
+	},
 	"block.glass.place":{
 		"sounds":[
 			"step/stone1",
@@ -144,60 +153,18 @@
 		"subtitle":"subtitles.block.generic.place",
 		"replace":true
 	},
-	"music.end":{
-		"sounds":[
+	"entity.ender_pearl.throw": {
+		"replace": true,
+		"sounds": [
 			{
-				"name":"music/game/end/end",
-				"stream":true
+				"name": "entity/endereye/endereye_launch1",
+				"volume": 1.3
 			},
 			{
-				"name":"music/game/ancestry",
-				"stream":true
-			},
-			{
-				"name":"music/game/nether/ballad_of_the_cats",
-				"stream":true
-			},
-			{
-				"name":"music/game/nether/warmth",
-				"stream":true
-			},
-			{
-				"name":"music/game/nether/dead_voxel",
-				"stream":true
-			},
-			{
-				"name":"music/game/key",
-				"stream":true
-			},
-			{
-				"name":"stellarity:music/ki",
-				"stream":true,
-				"volume":0.5
-			},
-			{
-				"name":"stellarity:music/intro",
-				"stream":true,
-				"volume":0.5
-			},
-			{
-				"name":"stellarity:music/excuse",
-				"stream":true,
-				"volume":0.5,
-				"weight": 2
-			},
-			{
-				"name":"stellarity:music/eleven",
-				"stream":true,
-				"volume":0.5
-			},
-			{
-				"name":"stellarity:music/voide",
-				"stream":true,
-				"volume":0.5,
-				"weight": 2
+				"name": "entity/endereye/endereye_launch2",
+				"volume": 1.3
 			}
 		],
-		"replace":true
+		"subtitle": "subtitles.entity.ender_pearl.throw"
 	}
 }

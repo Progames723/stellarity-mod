@@ -6,14 +6,19 @@
   "mixins": [
     "DamageSourcesMixin",
     "EventFactoryInvoker",
-    "LivingEntityMixin"
+    "LivingEntityMixin",
+    "SwordItemAccess",
+    "SwordItemMixin"
   ],
   "client": [
+    "client.GuiGraphicsMixin",
+    "client.GuiMixin",
+    "client.HeartTypeMixin",
     "client.ItemStackMixin"
+  ],
+  "server": [
   ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "priority": 2000,
-  "mixinPriority": 2000
+  }
 }

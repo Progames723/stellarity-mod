@@ -1,95 +1,4 @@
 {
-	"music.enter_end":{
-		"sounds":[
-			{
-				"name":"stellarity:music/the",
-				"stream":true,
-				"volume": 1
-			}
-		],
-		"replace":true
-	},
-	"music.boss.ender_dragon":{
-		"sounds":[
-			{
-				"name":"stellarity:music/kingdom_of_nothingness",
-				"stream":true,
-				"volume": 0.5
-			}
-		],
-		"replace":true
-	},
-	"music.boss.empress_of_light":{
-		"sounds":[
-			{
-				"name":"stellarity:music/shining_kaleidoscope",
-				"stream":true,
-				"volume": 0.5
-			}
-		],
-		"replace":true
-	},
-	"music.kill_dragon":{
-		"sounds":[
-			{
-				"name":"stellarity:music/to_the_beggining",
-				"stream":true,
-				"volume": 1
-			}
-		],
-		"replace":true
-	},
-	"music.create_portal":{
-		"sounds":[
-			{
-				"name":"stellarity:music/threshold",
-				"stream":true,
-				"volume": 1
-			}
-		],
-		"replace":true
-	},
-	"ambient.end.heavenly.blessed":{
-		"sounds":[
-			{
-				"name":"stellarity:ambient/heavenly_blessed",
-				"stream":true,
-				"volume": 0.25
-			}
-		],
-		"replace":true
-	},
-	"ambient.end.heavenly.grim":{
-		"sounds":[
-			{
-				"name":"stellarity:ambient/heavenly_grim",
-				"stream":true,
-				"volume": 0.25
-			}
-		],
-		"replace":true
-	},
-	"ambient.end.dark":{
-		"sounds":[
-			{
-				"name":"stellarity:ambient/dark",
-				"stream":true,
-				"volume": 0.25
-			}
-		],
-		"replace":true
-	},
-	"ambient.end.dark.calm":{
-		"sounds":[
-			{
-				"name":"stellarity:ambient/dark_calm",
-				"stream":true,
-				"volume": 0.5
-			}
-		],
-		"replace":true
-	},
-	
 	"entity.enderman.attack":{
 		"sounds":[
 			"stellarity:mob/enderman/attack_1",
@@ -228,13 +137,13 @@
 		"sounds":[
 			"stellarity:item/tamaris/execute"
 		],
-		"subtitle":"Tamaris executes"
+		"subtitle":"subtitles.entity.player.teleport"
 	},
 	"item.tamaris.execute_special":{
 		"sounds":[
 			"stellarity:item/tamaris/execute_special"
 		],
-		"subtitle":"kohy slays"
+		"subtitle":"subtitles.entity.player.teleport"
 	},
 	"item.tamaris.execute_bg":{
 		"sounds":[
@@ -255,7 +164,7 @@
 		"sounds":[
 			"stellarity:item/spirit_dagger/slash"
 		],
-		"subtitle": "Spirit Dagger teleports"
+		"subtitle": "subtitles.entity.player.teleport"
 	},
 	"item.spirit_dagger.charge_kohara":{
 		"sounds":[
@@ -266,7 +175,7 @@
 		"sounds":[
 			"stellarity:item/spirit_dagger/kohara_slash"
 		],
-		"subtitle": "kohara warps"
+		"subtitle": "subtitles.entity.player.teleport"
 	},
 	"block.end_portal.create":{
 		"sounds":[
@@ -282,5 +191,5 @@
 		"sounds":[
 			"stellarity:block/altar_of_light/blood_sacrifice"
 		]
-	}	
+	}
 }

@@ -13,8 +13,9 @@ public class OldCaching {
 	
 	private OldCaching() {caching = this;}
 	
-	public static OldCaching getInstance() { // me when singleton
-		return caching != null ? caching : new OldCaching();
+	public static OldCaching getInstance() {// me when singleton
+		if (caching == null) caching = new OldCaching();
+		return caching;
 	}
 	private int tooltipLinesCached = -1;
 	private List<Component> finalListCached = new ArrayList<>();

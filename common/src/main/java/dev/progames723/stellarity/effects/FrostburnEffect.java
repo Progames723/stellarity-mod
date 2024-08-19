@@ -10,6 +10,7 @@ public class FrostburnEffect extends BaseEffect {
 	public FrostburnEffect(MobEffectCategory mobEffectCategory, int i) {
 		super(mobEffectCategory, i);
 	}
+	
 	@Override
 	public void applyEffectTick(LivingEntity livingEntity, int i) {
 		i++;//this is done because minecraft is dumb e.g. effect level 0 is 1 and etc
@@ -20,6 +21,7 @@ public class FrostburnEffect extends BaseEffect {
 		}
 		livingEntity.hurt(sources.frostburn(), i);
 	}
+	
 	@Override
 	public boolean shouldApplyEffectTickThisTick(int i, int j) {
 		return i % 20 == 0;

@@ -16,6 +16,14 @@ public class Caching<T> {//use later instead of OldCaching
 		return caches;
 	}
 	
+	public void changeCaches(List<T> newCaches) {
+		for (int i = 0; i < newCaches.size(); i++) {
+			T obj = newCaches.get(i);
+			if (caches.get(i) == null) caches.add(obj);
+			else caches.set(i, obj);
+		}
+	}
+	
 	public T getDefaultVal() {
 		return defaultVal;
 	}
@@ -23,6 +31,10 @@ public class Caching<T> {//use later instead of OldCaching
 	public void addCachedObject(T obj) {
 		if (obj != null) caches.add(obj);
 		else caches.add(defaultVal);
+	}
+	
+	public boolean removeCachedObject(T obj) {
+		return caches.remove(obj);
 	}
 	
 	public void setDefaultVal(T defaultVal) {

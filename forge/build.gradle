@@ -6,7 +6,8 @@ loom {
         mixinConfig "stellarity-common.mixins.json"
         mixinConfig "stellarity.mixins.json"
         enableTransitiveAccessWideners = true
-        setAccessWidenerPath(file("src/main/resources/META-INF/stellarity.accesswidener"))
+        setAccessWidenerPath(file("src/main/resources/META-INF/stellarity_forge.accesswidener"))
+        setConvertAccessWideners(true)
     }
 }
 architectury {
@@ -27,6 +28,8 @@ dependencies {
     // Remove the next line if you don't want to depend on the API
     modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
     include "dev.architectury:architectury-forge:${rootProject.architectury_version}"
+
+    loom.officialMojangMappings()
 
     common(project(path: ":common", configuration: "namedElements")) { transitive false }
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
